@@ -3,8 +3,5 @@
 <input id="japanese_meaning"  type="text">
 <input id="save" type="submit" value="save">
 
-<% if !@words.nil? %>
-  <% @words.each do |word| %>
-    <%= word.english %>
-  <% end %>
-<% end %>
+<input id="search" type="text" placeholder="search">
+<%= render 'main/list' %>

@@ -1,0 +1,13 @@
+<% if !@words.nil? %>
+  <ul>
+  <% @words.each do |word| %>
+    <li word_id="<%=word.id%>">
+    <input type="text" class="english noedit" value="<%= word.english %>" readonly>:
+    <input type="text" class="english_meaning noedit" value="<%= word.english_meaning %>" readonly>:
+    <input type="text" class="japanese_meaning noedit" value="<%= word.japanese_meaning %>" readonly>
+    <input class="edit" type="submit" value="edit"/>
+    <input class="delete" type="submit" value="delete"/>
+    </li>
+  <% end %>
+  </ul>
+<% end %>

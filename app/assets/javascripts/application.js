@@ -16,19 +16,104 @@
 
 $(function(){
   $(document).on('click','#save',function(){onclick_save()});
+  $(document).on('click','.delete',function(){onclick_delete($(this))});
+  $(document).on('input','#search',function(){search()});
+  $(document).on('click','.edit',function(){onclick_edit($(this))});
+  $(document).on('click','.cancel',function(){onclick_cancel($(this))});
+  $(document).on('click','.update',function(){onclick_update($(this))});
 });
 
 
 function onclick_save(){
-  json =  '{"english":$(\'#english\'),';
-  json += "\"english_meaning\":$('#english_meaning'),";
-  json += "\"japanese_meaning\":$('#japanese_meaning') }",
+  var json =  '{"english":"' + $('#english').val() + '",';
+  json += '"english_meaning":"'  + $('#english_meaning').val()  + '",';
+  json += '"japanese_meaning":"' + $('#japanese_meaning').val() + '"}';
   $.ajax({
         url: '/main/update_word',
         type: 'POST',
+        contentType: "application/json; charset=utf-8",
+        data: json,
+        success: function(data){
+          $('ul').replaceWith(data);
+        },
+  });
+}
+
+function onclick_update(item){
+  var li = item.parent('li');
+  var english          = li.children('input.english').val();
+  var english_meaning  = li.children('input.english_meaning').val();
+  var japanese_meaning = li.children('input.japanese_meaning').val();
+
+  var json =  '{"english":"' + english + '",';
+  json += '"english_meaning":"'  + english_meaning  + '",';
+  json += '"japanese_meaning":"' + japanese_meaning + '"}';
+  $.ajax({
+        url: '/main/update_word',
+        type: 'POST',
+        contentType: "application/json; charset=utf-8",
         data: json,
         success: function(data){
         },
   });
 
+  onclick_cancel(item);
+}
+
+function onclick_cancel(item){
+  var li = item.parent('li');
+  li.children('input.english').attr('readonly',true);
+  li.children('input.english_meaning').attr('readonly',true);
+  li.children('input.japanese_meaning').attr('readonly',true);
+
+  li.children('input.english').addClass('noedit');
+  li.children('input.english_meaning').addClass('noedit');
+  li.children('input.japanese_meaning').addClass('noedit');
+
+  li.children('input.edit').css('display','');
+  li.children('.update').remove();
+  li.children('.cancel').remove();
+}
+
+function onclick_edit(item){
+  var li = item.parent('li');
+  li.children('input.english').attr('readonly',false);
+  li.children('input.english_meaning').attr('readonly',false);
+  li.children('input.japanese_meaning').attr('readonly',false);
+
+  li.children('input.english').removeClass('noedit');
+  li.children('input.english_meaning').removeClass('noedit');
+  li.children('input.japanese_meaning').removeClass('noedit');
+
+  var update = '<input class="update" type="submit" value="update">';
+  var cancel = '<input class="cancel" type="submit" value="cancel">';
+  li.children('input.edit').css('display','none');
+  li.append(update);
+  li.append(cancel);
+}
+
+function onclick_delete(item){
+  var id = item.parent('li').attr('word_id');
+  $.ajax({
+        url: '/main/delete_word/' + id,
+        success: function(data){
+          $('ul').replaceWith(data);
+        },
+  });
+}
+
+function search(){
+  var json =  '{"english":"' + $('#search').val() + '"}';
+  $.ajax({
+        url: '/main/search_word',
+        type: 'POST',
+        contentType: "application/json; charset=utf-8",
+        data: json,
+        success: function(data){
+          $('ul').replaceWith(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+          alert(textStatus);
+        }
+  });
 }

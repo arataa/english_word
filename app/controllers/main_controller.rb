@@ -1,18 +1,29 @@
 class MainController < ApplicationController
 
   def index
-    @word = Word.find(:all)
+    @words = Word.find(:all)
   end
 
   def update_word
-logger.debug request
     english          = params[:english]
-logger.debug english
     english_meaning  = params[:english_meaning]
     japanese_meaning = params[:japanese_meaning]
+
+    return if ( english.length == 0) 
     Word.update(english, english_meaning, japanese_meaning)
-#render :partial => 'suggests/friends_list', :object => @users
-    render :nothing => true
+    @words = Word.find(:all)
+    render :partial => "main/list"
+  end
+
+  def delete_word
+    Word.where("id = ?",params[:id]).delete_all
+    @words = Word.find(:all)
+    render :partial => "main/list"
+  end
+
+  def search_word
+    @words = Word.where("english LIKE ?",'%' + params[:english] + '%')
+    render :partial => "main/list"
   end
 
 end
