@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  enlish: MyString
+  english_meaning: MyString
+  japanese_meaning: MyString
+  count: 
+
+two:
+  enlish: MyString
+  english_meaning: MyString
+  japanese_meaning: MyString
+  count: 
