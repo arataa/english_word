@@ -17,7 +17,7 @@
 $(function(){
   $(document).on('click','#save',function(){onclick_save()});
   $(document).on('click','.delete',function(){onclick_delete($(this))});
-  $(document).on('input','#search',function(){search()});
+  $(document).on('input','#english',function(){search()});
   $(document).on('click','.edit',function(){onclick_edit($(this))});
   $(document).on('click','.cancel',function(){onclick_cancel($(this))});
   $(document).on('click','.update',function(){onclick_update($(this))});
@@ -35,6 +35,9 @@ function onclick_save(){
         data: json,
         success: function(data){
           $('ul').replaceWith(data);
+          $('#english').val("");
+          $('#english_meaning').val("");
+          $('#japanese_meaning').val("");
         },
   });
 }
@@ -103,7 +106,7 @@ function onclick_delete(item){
 }
 
 function search(){
-  var json =  '{"english":"' + $('#search').val() + '"}';
+  var json =  '{"english":"' + $('#english').val() + '"}';
   $.ajax({
         url: '/main/search_word',
         type: 'POST',
