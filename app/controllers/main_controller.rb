@@ -31,4 +31,10 @@ class MainController < ApplicationController
     render :json => @words
   end
 
+  def update_words
+    words = params[:_json]
+    Word.updates(words)
+    render :text => "true"
+  end
+
 end
