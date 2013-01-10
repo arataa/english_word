@@ -1,0 +1,98 @@
+have_library: checking for main() in -lz... -------------------- yes
+
+"gcc-4.2 -o conftest -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/ruby/backward -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I/Users/okuraa/.rvm/usr/include  -O3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe conftest.c  -L. -L/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/lib -L/Users/okuraa/.rvm/usr/lib -L.  -L/Users/okuraa/.rvm/usr/lib      -lruby.1.9.1  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc-4.2 -o conftest -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/ruby/backward -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I/Users/okuraa/.rvm/usr/include  -O3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe conftest.c  -L. -L/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/lib -L/Users/okuraa/.rvm/usr/lib -L.  -L/Users/okuraa/.rvm/usr/lib      -lruby.1.9.1 -lz  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+/* end */
+
+--------------------
+
+have_library: checking for main() in -leb... -------------------- yes
+
+"gcc-4.2 -o conftest -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/ruby/backward -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I/Users/okuraa/.rvm/usr/include  -O3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe conftest.c  -L. -L/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/lib -L/Users/okuraa/.rvm/usr/lib -L.  -L/Users/okuraa/.rvm/usr/lib     -lz  -lruby.1.9.1 -leb -lz  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_block_proc()... -------------------- yes
+
+"gcc-4.2 -o conftest -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/ruby/backward -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I/Users/okuraa/.rvm/usr/include  -O3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe conftest.c  -L. -L/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/lib -L/Users/okuraa/.rvm/usr/lib -L.  -L/Users/okuraa/.rvm/usr/lib     -leb -lz  -lruby.1.9.1 -leb -lz  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))rb_block_proc; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for eb_bitmap_to_png()... -------------------- no
+
+"gcc-4.2 -o conftest -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/ruby/backward -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I/Users/okuraa/.rvm/usr/include  -O3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe conftest.c  -L. -L/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/lib -L/Users/okuraa/.rvm/usr/lib -L.  -L/Users/okuraa/.rvm/usr/lib     -leb -lz  -lruby.1.9.1 -leb -lz  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘eb_bitmap_to_png’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))eb_bitmap_to_png; return 0; }
+/* end */
+
+"gcc-4.2 -o conftest -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/ruby/backward -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I/Users/okuraa/.rvm/usr/include  -O3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe conftest.c  -L. -L/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/lib -L/Users/okuraa/.rvm/usr/lib -L.  -L/Users/okuraa/.rvm/usr/lib     -leb -lz  -lruby.1.9.1 -leb -lz  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: warning: implicit declaration of function ‘eb_bitmap_to_png’
+Undefined symbols for architecture x86_64:
+  "_eb_bitmap_to_png", referenced from:
+      _t in ccG8ZeQR.o
+ld: symbol(s) not found for architecture x86_64
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { eb_bitmap_to_png(); return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for eb/sysdefs.h... -------------------- no
+
+"gcc-4.2 -E -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/x86_64-darwin10.8.0 -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/ruby/backward -I/Users/okuraa/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I/Users/okuraa/.rvm/usr/include  -O3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe  conftest.c -o conftest.i"
+conftest.c:3:24: error: eb/sysdefs.h: No such file or directory
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <eb/sysdefs.h>
+/* end */
+
+--------------------
+

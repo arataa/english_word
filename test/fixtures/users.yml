@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  mail: MyString
+  password: MyString
+  access_date: 2013-01-10
+
+two:
+  mail: MyString
+  password: MyString
+  access_date: 2013-01-10
