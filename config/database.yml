@@ -5,11 +5,11 @@
 #   gem 'sqlite3'
 development:
   adapter: postgresql
-  encoding: unicode
+  encoding : unicode
   database: english_words
   pool: 5
   username: okura
-  password: arata214
+  password:
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -17,15 +17,15 @@ development:
 test:
   adapter: postgresql
   encoding : unicode
-  database: english_word
+  database: english_words
   pool: 5
   username: okura
-  password: 0214
+  password:
 
 production:
   adapter: postgresql
   encoding : unicode
-  database: english_word
+  database: english_words
   pool: 5
   username: okura
-  password: 0214
+  password:

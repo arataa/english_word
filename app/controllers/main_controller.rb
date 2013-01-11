@@ -1,6 +1,7 @@
 class MainController < ApplicationController
 
   def index
+    redirect_to "/login" if current_user.nil?
     @words = Word.find(:all,:order => 'lower(english) asc')
   end
 

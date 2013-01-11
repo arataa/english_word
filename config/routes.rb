@@ -1,9 +1,9 @@
 EnglishWarods::Application.routes.draw do
-  resources :sessions, :only => [:create]
-  resources :users
   get 'register' => 'users#new', :as => 'register'
   get 'login' => 'sessions#new', :as => 'login'
   get 'logout' => 'sessions#destroy', :as => 'logout'
+  resources :sessions, :only => [:create]
+  resources :users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
