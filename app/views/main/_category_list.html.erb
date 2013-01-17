@@ -1,0 +1,11 @@
+<% if !@categories.nil? %>
+  <ul>
+  <% @categories.each do |category| %>
+    <li category_id="<%=category.id%>">
+    <input type="text" class="category noedit" value="<%= category.name %>" readonly>:
+    <input class="edit" type="submit" value="edit"/>
+    <input class="delete" type="submit" value="delete"/>
+    </li>
+  <% end %>
+  </ul>
+<% end %>

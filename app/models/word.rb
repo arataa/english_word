@@ -1,9 +1,11 @@
 class Word < ActiveRecord::Base
-  attr_accessible :count, :english_meaning, :english, :japanese_meaning
+  has_many :category
+  attr_accessible :category_id, :count, :english_meaning, :english, :japanese_meaning
 
   def self.update(english, english_meaning, japanese_meaning)
     new_word = where("english = ?",english).first
     new_word                  ||= new()
+    new_word.category_id      = @category_id
     new_word.english          = english
     new_word.english_meaning  = english_meaning
     new_word.japanese_meaning = japanese_meaning

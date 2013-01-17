@@ -21,8 +21,24 @@ $(function(){
   $(document).on('click','.edit',function(){onclick_edit($(this))});
   $(document).on('click','.cancel',function(){onclick_cancel($(this))});
   $(document).on('click','.update',function(){onclick_update($(this))});
+
+  $(document).on('click','#add_category',function(){onclick_add()});
+  $(document).on('click','.category',function(){onclick_category($(this))});
 });
 
+function onclick_add(item){
+
+  $.ajax({
+        url: '/categories',
+        type: 'POST',
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ category: { name: $('#category_name').val() }}),
+        success: function(data){
+          $('ul').replaceWith(data);
+          $('#category_name').val("");
+        },
+  });
+}
 
 function onclick_save(){
   var json =  '{"english":"' + $('#english').val() + '",';
@@ -100,6 +116,17 @@ function onclick_delete(item){
   $.ajax({
         url: '/main/delete_word/' + id,
         success: function(data){
+          $('ul').replaceWith(data);
+        },
+  });
+}
+
+function onclick_category(item){
+  var id = item.parent('li').attr('category_id');
+  $.ajax({
+        url: '/main/category/' + id,
+        success: function(data){
+alert(data);
           $('ul').replaceWith(data);
         },
   });
