@@ -1,6 +1,12 @@
-<input id="english"  type="text" placeholder="english word">
-<input id="english_meaning"  type="text" placeholder="english meaning">
-<input id="japanese_meaning"  type="text" placeholder="japanese meaning">
+
+<section>
+<label id="category_id" category_id="<%= @category.id %>"><a href="#" onclick="return false">category</a> : <%= @category.name %></label>
+<br>
+
+<textarea id="word"  rows=4 cols="50" placeholder="word" ></textarea>
+<textarea id="meaning"  rows=4 cols="50" placeholder="meaning" /></textarea>
 <input id="save" type="submit" value="save">
 
-<%= render 'main/list' %>
+<%= render 'main/word_list' %>
+
+</section>

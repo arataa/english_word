@@ -5,6 +5,7 @@ EnglishWarods::Application.routes.draw do
   resources :sessions, :only => [:create]
   resources :users
   resources :categories
+  resources :words
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

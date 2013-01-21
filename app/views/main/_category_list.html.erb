@@ -1,8 +1,8 @@
 <% if !@categories.nil? %>
-  <ul>
+  <ul class="category">
   <% @categories.each do |category| %>
     <li category_id="<%=category.id%>">
-    <input type="text" class="category noedit" value="<%= category.name %>" readonly>:
+    <input type="text" class="category_name noedit" value="<%= category.name %>" readonly>
     <input class="edit" type="submit" value="edit"/>
     <input class="delete" type="submit" value="delete"/>
     </li>

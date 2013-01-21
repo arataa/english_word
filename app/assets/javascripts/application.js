@@ -15,15 +15,27 @@
 //= require_tree .
 
 $(function(){
+
   $(document).on('click','#save',function(){onclick_save()});
-  $(document).on('click','.delete',function(){onclick_delete($(this))});
-  $(document).on('input','#english',function(){search()});
+  $(document).on('click','.word_list .delete',function(){onclick_delete($(this))});
+  $(document).on('input','#word',function(){search()});
   $(document).on('click','.edit',function(){onclick_edit($(this))});
   $(document).on('click','.cancel',function(){onclick_cancel($(this))});
-  $(document).on('click','.update',function(){onclick_update($(this))});
+  $(document).on('click','.word_list .update',function(){onclick_update($(this))});
 
   $(document).on('click','#add_category',function(){onclick_add()});
-  $(document).on('click','.category',function(){onclick_category($(this))});
+  $(document).on('click','.category .delete',function(){onclick_category_delete($(this))});
+  $(document).on('click','.category .update',function(){onclick_category_update($(this))});
+
+  $(document).on('click','.category_name',function(){onclick_category($(this))});
+
+  $(document).on('click','#category_id a',function(){onclick_category_all()});
+
+   onpopstate = function(event) {
+     changeContents(location.pathname);
+   }
+
+
 });
 
 function onclick_add(item){
@@ -41,35 +53,34 @@ function onclick_add(item){
 }
 
 function onclick_save(){
-  var json =  '{"english":"' + $('#english').val() + '",';
-  json += '"english_meaning":"'  + $('#english_meaning').val()  + '",';
-  json += '"japanese_meaning":"' + $('#japanese_meaning').val() + '"}';
+  var json = JSON.stringify({ word : {category_id : $('#category_id').attr('category_id'),
+                                      word : $('#word').val(),
+                                  meaning  : $('#meaning').val()}});
   $.ajax({
-        url: '/main/update_word',
+        url: '/words',
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         data: json,
         success: function(data){
           $('ul').replaceWith(data);
-          $('#english').val("");
-          $('#english_meaning').val("");
-          $('#japanese_meaning').val("");
+          $('#word').val("");
+          $('#meaning').val("");
         },
   });
 }
 
 function onclick_update(item){
-  var li = item.parent('li');
-  var english          = li.children('input.english').val();
-  var english_meaning  = li.children('input.english_meaning').val();
-  var japanese_meaning = li.children('input.japanese_meaning').val();
+  var li      = item.parent('li');
+  var id      = li.attr('word_id');
+  var word    = li.children('.word').val();
+  var meaning = li.children('.meaning').val();
 
-  var json =  '{"english":"' + english + '",';
-  json += '"english_meaning":"'  + english_meaning  + '",';
-  json += '"japanese_meaning":"' + japanese_meaning + '"}';
+  var json = JSON.stringify({ word : {category_id : $('#category_id').attr('category_id'),
+                                      word : word,
+                                  meaning  : meaning }});
   $.ajax({
-        url: '/main/update_word',
-        type: 'POST',
+        url: '/words/' + id,
+        type: 'PUT',
         contentType: "application/json; charset=utf-8",
         data: json,
         success: function(data){
@@ -79,15 +90,30 @@ function onclick_update(item){
   onclick_cancel(item);
 }
 
+function onclick_category_update(item){
+  var li = item.parent('li');
+  var id = li.attr('category_id');
+  var category_name = li.children('input.category_name').val();
+
+  $.ajax({
+        url: '/categories/' + id,
+        type: 'PUT',
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ category: { name: category_name }}),
+        success: function(data){
+        },
+  });
+
+  onclick_cancel(item);
+}
+
+
 function onclick_cancel(item){
   var li = item.parent('li');
-  li.children('input.english').attr('readonly',true);
-  li.children('input.english_meaning').attr('readonly',true);
-  li.children('input.japanese_meaning').attr('readonly',true);
-
-  li.children('input.english').addClass('noedit');
-  li.children('input.english_meaning').addClass('noedit');
-  li.children('input.japanese_meaning').addClass('noedit');
+  li.children('input[type=text]').attr('readonly',true);
+  li.children('input[type=text]').addClass('noedit');
+  li.children('textarea').attr('readonly',true);
+  li.children('textarea').addClass('noedit');
 
   li.children('input.edit').css('display','');
   li.children('.update').remove();
@@ -96,13 +122,10 @@ function onclick_cancel(item){
 
 function onclick_edit(item){
   var li = item.parent('li');
-  li.children('input.english').attr('readonly',false);
-  li.children('input.english_meaning').attr('readonly',false);
-  li.children('input.japanese_meaning').attr('readonly',false);
-
-  li.children('input.english').removeClass('noedit');
-  li.children('input.english_meaning').removeClass('noedit');
-  li.children('input.japanese_meaning').removeClass('noedit');
+  li.children('input[type=text]').attr('readonly',false);
+  li.children('input[type=text]').removeClass('noedit');
+  li.children('textarea').attr('readonly',false);
+  li.children('textarea').removeClass('noedit');
 
   var update = '<input class="update" type="submit" value="update">';
   var cancel = '<input class="cancel" type="submit" value="cancel">';
@@ -114,7 +137,19 @@ function onclick_edit(item){
 function onclick_delete(item){
   var id = item.parent('li').attr('word_id');
   $.ajax({
-        url: '/main/delete_word/' + id,
+        type: 'DELETE',
+        url: '/words/' + id,
+        success: function(data){
+          $('ul').replaceWith(data);
+        },
+  });
+}
+
+function onclick_category_delete(item){
+  var id = item.parent('li').attr('category_id');
+  $.ajax({
+        type: 'DELETE',
+        url: '/categories/' + id,
         success: function(data){
           $('ul').replaceWith(data);
         },
@@ -122,18 +157,23 @@ function onclick_delete(item){
 }
 
 function onclick_category(item){
+  //e.preventDefault();
   var id = item.parent('li').attr('category_id');
-  $.ajax({
-        url: '/main/category/' + id,
-        success: function(data){
-alert(data);
-          $('ul').replaceWith(data);
-        },
-  });
+  var nextPage = '/categories/' + id;
+
+  changeContents(nextPage);
+  window.history.pushState(null, null, nextPage)
+}
+
+
+function onclick_category_all(){
+  var nextPage = '/';
+  changeContents(nextPage);
+  window.history.pushState(null, null, nextPage)
 }
 
 function search(){
-  var json =  '{"english":"' + $('#english').val() + '"}';
+  var json =  '{"word":"' + $('#word').val() + '"}';
   $.ajax({
         url: '/main/search_word',
         type: 'POST',
@@ -146,4 +186,8 @@ function search(){
           alert(textStatus);
         }
   });
+}
+
+function changeContents(url) {
+  $('section').load(url+' section');
 }

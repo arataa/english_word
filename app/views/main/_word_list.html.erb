@@ -1,0 +1,12 @@
+<% if !@words.nil? %>
+  <ul class="word_list">
+  <% @words.each do |word| %>
+    <li word_id="<%=word.id%>">
+    <textarea rows=4 colomun=50 class="word noedit" readonly><%= word.word %></textarea>
+    <textarea rows=4 colomun=50 class="meaning noedit" readonly><%= word.meaning %></textarea>
+    <input class="edit" type="submit" value="edit"/>
+    <input class="delete" type="submit" value="delete"/>
+    </li>
+  <% end %>
+  </ul>
+<% end %>
