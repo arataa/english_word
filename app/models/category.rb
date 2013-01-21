@@ -1,5 +1,5 @@
 class Category < ActiveRecord::Base
-  belongs_to :word
+  has_many :word
   attr_accessible :name
   def self.update(name)
     new_category = where("name = ?",name).first

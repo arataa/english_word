@@ -1,5 +1,5 @@
 class Word < ActiveRecord::Base
-  has_many :category
+  belongs_to :category
   attr_accessible :category_id, :count, :english_meaning, :english, :japanese_meaning
 
   def self.update(english, english_meaning, japanese_meaning)

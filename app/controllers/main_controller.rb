@@ -2,7 +2,7 @@ class MainController < ApplicationController
 
   def index
     redirect_to "/login" if current_user.nil?
-    @categories = Category.all
+    @categories = Category.where("user_id = ?",current_user.id)
   end
 
   def search_word
@@ -10,15 +10,17 @@ class MainController < ApplicationController
     render :partial => "main/word_list"
   end
 
-  def get_words
-    @words = Word.find(:all,:order => 'lower(word) asc')
-    render :json => @words
-  end
-
   def update_words
     words = params[:_json]
     Word.updates(words)
     render :text => "true"
+  end
+
+  def get_categroies_words
+    words      = Word.joins(:category).where("categories.user_id = ?",current_user.id)
+    categories = Category.where("categories.user_id = ?",current_user.id)
+    categoriesAndWords = {:categries => categories, :words => words}
+    render :json => categoriesAndWords
   end
 
 end
