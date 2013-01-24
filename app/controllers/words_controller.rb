@@ -1,17 +1,22 @@
 class WordsController < ApplicationController
   def index
-    @words = Word.find(:all,:order => 'lower(word) asc')
+    @word = Word.find(params[:id])
+  end
+
+  def new
+    @word = Word.new
   end
 
   def create
-     @word = Word.new(params[:word])
-     if @word.save
-       flash[:notice] = "Successfully created post."
-       @words = Word.where("category_id = ?", @word.category_id).order('lower(word) asc')
-       render :partial => "main/word_list"
-     else
-       render :action => 'index'
-     end
+    logger.debug params[:word]
+    @word = Word.new(params[:word])
+    if @word.save
+      flash[:notice] = "Successfully created post."
+      @words = Word.where("category_id = ?", @word.category_id).order('lower(word) asc')
+      render :partial => "main/word_list"
+    else
+      render :action => 'index'
+    end
   end
 
 
@@ -32,5 +37,6 @@ class WordsController < ApplicationController
     @words = Word.where("category_id = ?", @word.category_id).order('lower(word) asc')
     render :partial => "main/word_list"
   end
+
 
 end

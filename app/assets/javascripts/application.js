@@ -173,7 +173,8 @@ function onclick_category_all(){
 }
 
 function search(){
-  var json =  '{"word":"' + $('#word').val() + '"}';
+  var json = JSON.stringify({ category_id : $('#category_id').attr('category_id'),
+                                  word  : $('#word').val()  });
   $.ajax({
         url: '/main/search_word',
         type: 'POST',

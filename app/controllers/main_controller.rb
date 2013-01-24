@@ -6,7 +6,7 @@ class MainController < ApplicationController
   end
 
   def search_word
-    @words = Word.where("word LIKE ?",'%' + params[:word] + '%').order("lower(word)")
+    @words = Word.where("category_id = ? and word LIKE ?",params[:category_id],'%' + params[:word] + '%').order("lower(word)")
     render :partial => "main/word_list"
   end
 
@@ -25,4 +25,9 @@ class MainController < ApplicationController
     render :json => categoriesAndWords
   end
 
+  def test
+    @word = Word.find(params[:id]) unless params[:id].nil?
+    @word.set_test_result(params[:correct]) unless params[:correct].nil?
+    @word = Word.get_test_word(params[:category_id])
+  end
 end
