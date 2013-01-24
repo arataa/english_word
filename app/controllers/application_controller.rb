@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
   end
 
   def check_user
-    return if controller_name == "sessions"
-    redirect_to "/login" if current_user.nil?
+    #return if controller_name == "sessions"
+    #redirect_to "/login" if current_user.nil?
   end
 
 end

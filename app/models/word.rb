@@ -35,7 +35,10 @@ class Word < ActiveRecord::Base
 
   def self.updates(words)
     words.each do |word|
-      update(word[:english], word[:english_meaning], word[:japanese_meaning])
+      word_tmp = find(word.id)
+      word_tmp.update_attributes(word) unless word_tmp.nil?
+      word_tmp != new(word) 
+      word_tmp.save
     end
   end
 
